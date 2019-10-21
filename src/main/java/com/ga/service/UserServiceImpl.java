@@ -50,15 +50,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String signup(User user) {
-        try {
-        	user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            if(userDao.createUser(user) != null) {
-                UserDetails userDetails = loadUserByUsername(user.getUserName());
+    	user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if(userDao.createUser(user) != null) {
+            UserDetails userDetails = loadUserByUsername(user.getUserName());
 
-                return jwtUtil.generateToken(userDetails);
-            }
-        } catch(Exception e) {
-        	System.out.println(e.getMessage());
+            return jwtUtil.generateToken(userDetails);
         }
 
         return null;

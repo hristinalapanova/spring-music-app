@@ -14,7 +14,7 @@ public class User {
     private Long userId;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String userName;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -27,9 +27,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Song> songs;
 
-    public User(Long userId, String username, String password) {
+    public User(Long userId, String userName, String password) {
         this.userId = userId;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
     }
     
@@ -44,11 +44,11 @@ public class User {
     }
 
     public String getUserName() {
-        return username;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        this.username = userName;
+        this.userName = userName;
     }
 
     public String getPassword() {

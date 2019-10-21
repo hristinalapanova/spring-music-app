@@ -75,7 +75,7 @@ public class UserDaoImpl implements UserDao{
         User dbuser;
         try{
             session.beginTransaction();
-            dbuser= (User) session.createQuery("from User u where u.username='"+
+            dbuser= (User) session.createQuery("from User u where u.userName='"+
                     username+ "'")
                     .getSingleResult();
 
@@ -88,9 +88,12 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public List<Song> getSongs(String username) {
+    	User user = getUserByUserName(username);
+    	if (user != null) {
+    		return user.getSongs();
+    	}
 
-
-        return getUserByUserName(username).getSongs();
+        return null;
     }
 
     @Override

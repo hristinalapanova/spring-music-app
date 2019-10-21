@@ -20,7 +20,7 @@ public class Song {
     private int length;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinTable(name="user_song",
     joinColumns = @JoinColumn(name="song_id"),
     inverseJoinColumns = @JoinColumn(name="user_id"))
