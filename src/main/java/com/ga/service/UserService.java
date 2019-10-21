@@ -12,6 +12,8 @@ public interface UserService extends UserDetailsService {
 
     public String singIn(User user);
 
+    public User getUserbyId(Long userId);
+    
     public Long deleteUser(Long userId);
 
     public User updateUser(User user, Long userId);

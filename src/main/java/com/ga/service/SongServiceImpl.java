@@ -1,5 +1,6 @@
 package com.ga.service;
 
+import com.ga.config.JwtUtil;
 import com.ga.dao.SongDao;
 import com.ga.entity.Song;
 import com.ga.entity.User;
@@ -9,6 +10,9 @@ import java.util.List;
 
 @Service
 public class SongServiceImpl implements SongService {
+	
+	@Autowired
+    JwtUtil jwtUtil;
 	
     @Autowired
     SongDao songDao;

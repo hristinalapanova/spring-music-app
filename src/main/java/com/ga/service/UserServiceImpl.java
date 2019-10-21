@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String signup(User user) {
+    public String signup(User user) {    	
     	user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if(userDao.createUser(user) != null) {
             UserDetails userDetails = loadUserByUsername(user.getUserName());
@@ -98,4 +98,9 @@ public class UserServiceImpl implements UserService {
     public List<Song> addSong(String username, Long songId) {
         return userDao.addSong(username, songId);
     }
+
+	@Override
+	public User getUserbyId(Long userId) {
+        return userDao.getUserbyId(userId);
+	}
 }

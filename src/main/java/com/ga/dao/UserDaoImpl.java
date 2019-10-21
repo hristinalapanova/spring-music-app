@@ -2,31 +2,45 @@ package com.ga.dao;
 
 import com.ga.entity.Song;
 import com.ga.entity.User;
+import com.ga.entity.UserRole;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public class UserDaoImpl implements UserDao{
+	
     @Autowired
     SessionFactory sessionFactory;
+    
+    @Autowired
+	UserRoleDao userRoleDao;
 
     @Override
     public User createUser(User user) {
-        Session session= sessionFactory.getCurrentSession();
-        try{
-            session.beginTransaction();
-            session.save(user);
-            session.getTransaction().commit();
-
-
-        }
-        finally{
-            session.close();
-        }
-        return user;
+        String roleName = user.getUserRole().getName();
+		
+		UserRole userRole = userRoleDao.getRole(roleName);
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			
+			user.setUserRole(userRole);
+			
+			session.save(user);
+			
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
+		
+		return user;
     }
 
     @Override
@@ -112,4 +126,18 @@ public class UserDaoImpl implements UserDao{
         }
         return user.getSongs();
     }
+
+	@Override
+	public User getUserbyId(Long userId) {
+		Session session= sessionFactory.getCurrentSession();
+		
+        try{
+            session.beginTransaction();
+            User user = session.get(User.class, userId);
+            return user;
+        }
+        finally{
+            session.close();
+        }
+	}
 }

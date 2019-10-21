@@ -13,10 +13,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
+    
     UserService userService;
     
-    public UserController() {}
+    public UserService getUserService() {
+		return userService;
+	}
+
+    @Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public UserController() {}
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody User user) {
@@ -39,14 +48,18 @@ public class UserController {
     }
 
     @PutMapping("/{username}/addsong/{songId}")
-    public List<Song> addSong(@PathVariable("username") String username, @PathVariable("songId") Long songId)
-    {
+    public List<Song> addSong(@PathVariable("username") String username, @PathVariable("songId") Long songId) {
         return userService.addSong(username, songId);
     }
 
     @GetMapping("/{username}/songs")
     public List<Song>songList(@PathVariable("username") String username){
         return userService.getSongs(username);
+    }
+    
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable("id") Long userId) {
+    	return userService.getUserbyId(userId);
     }
 }
 

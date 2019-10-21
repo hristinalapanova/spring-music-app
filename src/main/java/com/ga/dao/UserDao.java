@@ -11,6 +11,8 @@ public interface UserDao {
 
     public User singIn(User user);
 
+	public User getUserbyId(Long userId);
+
     public Long deleteUser(Long userId);
 
     public User updateUser(User user, Long userId);

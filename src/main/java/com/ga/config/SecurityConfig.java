@@ -50,13 +50,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/user/signup/**", "/user/login/**").permitAll()
-//                .antMatchers("/user/**", "/profile/**").authenticated()
-//                .antMatchers("/role/**").hasRole("DBA")
-//                .antMatchers("/course/**").hasRole("ADMIN")
+    	        .antMatchers("/user/**", "/role/**", "/song/**").authenticated()
+    	        // Getting 403 Forbidden despite user having ROLE_ADMIN
+//    	        .antMatchers("/user/{id}").hasRole("ADMIN")
+//    	        .antMatchers("/user/delete/{id}").hasRole("ADMIN")
+//    	        .antMatchers("/role/**").hasRole("ADMIN")
+//    	        .antMatchers("/song/**").hasRole("ADMIN")
                 .and()
                 .httpBasic()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
